@@ -1,3 +1,5 @@
-const [player, background] = document.querySelectorAll('img');
+const background = document.querySelector('.stage');
 
-canvasContext.drawImage(background, 0, 0);
+export function drawBackground(canvasContext) {
+	canvasContext.drawImage(background, 0, 0);
+}
