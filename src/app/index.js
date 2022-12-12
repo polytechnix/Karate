@@ -1,6 +1,6 @@
-import { drawBackground } from './stage.js';
-import { drawPlayer1, updatePlayer1 } from './player1.js';
-import { drawPlayer12, updatePlayer2 } from './player2.js';
+import { Stage } from './core/Stage.js';
+import { Player1 } from './core/Player1.js';
+import { Player2 } from './core/Player2.js';
 
 const GameViewport = {
 	WIDTH: 384,
@@ -14,14 +14,25 @@ window.onload = function() {
 	canvasSection.width = GameViewport.WIDTH;
 	canvasSection.height = GameViewport.HEIGHT;
 
-	function frame() {
-		updatePlayer1(canvasContext);
-		drawPlayer1(canvasContext);
+	const player1 = new Player1(80, 120, 180);
+	const player1 = new Player1(80, 120, -180);
+	const stage = new Stage();
 
-		updatePlayer2(canvasContext);
-		drawPlayer2(canvasContext);
+	let previousTime = 0;
+	let secondsPassed = 0;
 
-		drawBackground(canvasContext);
+	function frame(time) {
+
+		secondsPassed = (time - previousTime) / 1000;
+		previousTime = time;
+
+		player1.update(secondsPassed, canvasContext);
+		player1.draw(secondsPassed, canvasContext);
+
+		player2.update(secondsPassed, canvasContext);
+		player2.draw(secondsPassed, canvasContext);
+
+		stage(canvasContext);
 		window.requestAnimationFrame(frame);
 	}
 
