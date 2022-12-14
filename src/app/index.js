@@ -22,17 +22,21 @@ window.addEventListener('load', function() {
 		new FpsCounter();
 	];
 
-	let previousTime = 0;
-	let secondsPassed = 0;
+	let frameTime = {
+		let previousTime: 0,
+		let secondsPassed: 0
+	};
 
 	function frame(time) {
 		window.requestAnimationFrame(frame);
 
-		secondsPassed = (time - previousTime) / 1000;
-		previousTime = time;
-		
+		frameTime = {
+			secondsPassed: (time - frameTime.previousTime) / 1000,
+			previousTime: time
+		};
+
 		for(const entity of createEntities) {
-			entity.update(secondsPassed, canvasContext);
+			entity.update(frameTime, canvasContext);
 		}
 
 		for(const entity of createEntities) {
