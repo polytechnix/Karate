@@ -27,10 +27,24 @@ export class Fighter = {
 			}
 		}
 
+		drawDebug(canvasContext) { 
+			canvasContext.lineWidth = 1;
+			canvasContext.beginPath();
+			canvasContext.strokeStyle = '#fff';
+			canvasContext.moveTo(this.position.x - 5, this.position.y);
+			canvasContext.lineTo(this.position.x + 4, this.position.y);
+			canvasContext.moveTo(this.position.x, this.position.y - 5);
+			canvasContext.lineTo(this.position.x, this.position.y + 4);
+			canvasContext.stroke();
+		}
+
+
 		draw(canvasContext) {
 			const [x, y, width, height] = this.frames.get(`forwards-${this.animationFrame}`);
 
 			canvasContext.drawImage(this.image, x, y, width, height, this.position.x, this.position.y, width, height);
+
+			this.drawDebug(canvasContext);
 		}
 	}
 }
